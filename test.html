@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bu-Health Nexus | Advancing Public Health</title>
+    <meta name="description" content="Bu-Health Nexus is a professional services firm advancing public health through evidence generation, capacity building, strategic collaboration, and end-to-end solutions that bridge research, practice, and policy." />
+
+    <style>
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.65;
+            color: #222;
+            background: #fff;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+        }
+
+        /* ===== Color System (aligned to logo) ===== */
+        :root {
+            --blue: #004a87;
+            --blue-600: #003d6f;
+            --green: #2ca24c;
+            --green-600: #22863a;
+            --gray-50: #fafafa;
+            --gray-100: #f4f4f4;
+            --gray-200: #eaeaea;
+            --ink: #222;
+            --ink-70: #444;
+            --ink-50: #666;
+        }
+
+        a {
+            color: var(--blue);
+        }
+
+        /* ===== Skip Link ===== */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: -999px;
+        }
+
+        .skip-link:focus {
+            left: 1rem;
+            top: 1rem;
+            background: #fff;
+            border: 2px solid var(--blue);
+            padding: .5rem .75rem;
+            z-index: 10000;
+        }
+
+        /* ===== Splash / Intro Overlay ===== */
+        .splash {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: opacity .6s ease, visibility .6s ease;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .splash .logo-wrap {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            border: 4px solid var(--blue);
+            box-shadow: 0 8px 20px rgba(0,0,0,.08);
+            animation: pulse 1.8s ease-in-out infinite;
+            background: #fff;
+        }
+        .splash img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+        }
+        .splash h1 {
+            margin-top: 1rem;
+            color: var(--blue);
+            font-size: 1.25rem;
+        }
+        .splash .btn { margin-top: 1.25rem; }
+        .splash.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        body.no-scroll { overflow: hidden; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* ===== Header / Nav ===== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .9rem 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: .4rem .5rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* ===== Headings & Sections ===== */
+        section {
+            padding: 3.25rem 0;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.25;
+        }
+
+        h2 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+            font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+        }
+
+        h3 {
+            color: var(--green);
+            margin-bottom: .5rem;
+        }
+
+        p { color: var(--ink-70); }
+        .muted { color: var(--ink-50); }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-block;
+            background: var(--green);
+            color: #fff;
+            padding: 0.7rem 1.25rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background .2s ease;
+        }
+
+        .btn:hover { background: var(--green-600); }
+
+        .btn.secondary {
+            background: transparent;
+            border: 2px solid #fff;
+        }
+
+        .btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn.outline-dark {
+            background: transparent;
+            color: var(--blue);
+            border: 2px solid var(--blue);
+        }
+
+        .btn.outline-dark:hover {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+                url('https://picsum.photos/1600/700?healthcare,public-health') center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 5.5rem 0 4rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.6rem, 1.2rem + 2.4vw, 2.8rem);
+            margin-bottom: .85rem;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: 0.25rem auto 1.25rem;
+        }
+
+        .hero .cta {
+            display: flex;
+            gap: .75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: .75rem;
+        }
+
+        /* ===== Stats / Trust Bar ===== */
+        .stats {
+            background: var(--gray-100);
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.25rem;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 1rem;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .stat .num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--blue);
+        }
+
+        .stat .label { color: var(--ink-50); }
+
+        /* ===== About ===== */
+        #about .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .list {
+            margin-top: .5rem;
+            padding-left: 1rem;
+        }
+
+        .list li { margin: .35rem 0; }
+
+        /* ===== Services ===== */
+        #services { background: var(--gray-50); }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .service {
+            background: #fff;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 1.25rem;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .service:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        .service h3 { display: flex; align-items: center; gap: .5rem; }
+        .service .icon { font-size: 1.15rem; }
+
+        /* ===== Projects / Case Studies ===== */
+        #projects .case {
+            background: #fff;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        #projects h3 { color: var(--blue); }
+
+        /* ===== Blog / Resources ===== */
+        .blog {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .post {
+            background: #fff;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .post .meta { font-size: .9rem; }
+
+        /* ===== Contact ===== */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        form .full { grid-column: 1 / -1; }
+
+        input,
+        textarea {
+            padding: 0.85rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            font: inherit;
+        }
+
+        textarea { resize: vertical; }
+
+        form button { justify-self: start; }
+
+        .contact-meta { margin-top: 1rem; }
+        .contact-meta a { color: var(--blue); text-decoration: none; }
+        .contact-meta a:hover { text-decoration: underline; }
+
+        iframe.map { border: 0; border-radius: 10px; }
+
+        /* ===== Footer ===== */
+        footer {
+            background: #0f1a24;
+            color: #fff;
+            text-align: center;
+            padding: 1.4rem;
+            margin-top: 2rem;
+            font-size: .95rem;
+        }
+
+        footer .links { margin-top: .5rem; display: flex; gap: .75rem; justify-content: center; }
+
+        footer .links a { color: #cde2f7; text-decoration: none; }
+        footer .links a:hover { text-decoration: underline; }
+
+        /* ===== Responsive tweaks ===== */
+        @media (max-width: 700px) {
+            nav ul { display: none; } /* Keep simple for now (no hamburger) */
+            form { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body class="no-scroll">
+    <a class="skip-link" href="#home">Skip to content</a>
+
+    <div id="splash" class="splash" role="dialog" aria-modal="true" aria-label="Introductory overlay">
+        <div class="logo-wrap">
+            <img src="./images/WhatsApp Image 2025-09-25 at 21.06.55.jpeg" alt="Bu-Health Nexus logo" />
+        </div>
+        <h1>Bu-Health Nexus</h1>
+        <button class="btn" id="enter-site" aria-label="Enter site">Get Started</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav" role="navigation" aria-label="Primary">
+            <div class="brand">
+                <img src="./images/WhatsApp Image 2025-09-25 at 21.06.55.jpeg" alt="Bu-Health Nexus logo" />
+                <span>Bu-Health Nexus Ltd</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home" aria-label="Hero">
+        <div class="container">
+            <h1>Advancing Public Health with Evidence, Capacity, and Collaboration</h1>
+            <p>
+                Bu-Health Nexus is a professional services firm dedicated to advancing public health through
+                evidence generation, capacity building, and strategic collaboration. We manage scientific conferences
+                and workshops, conduct public health surveys, support research grants, deliver data collection and
+                analytics, and design training programs that translate research into practice and policy.
+            </p>
+            <div class="cta">
+                <a class="btn" href="#contact" aria-label="Partner with Bu-Health Nexus">Partner With Us</a>
+                <a class="btn secondary" href="#services" aria-label="Explore services">Explore Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats / Trust Bar -->
+    <section class="stats" aria-label="Highlights">
+        <div class="container stats-grid">
+            <div class="stat">
+                <div class="num">50+ events</div>
+                <div class="label">Conferences & workshops delivered</div>
+            </div>
+            <div class="stat">
+                <div class="num">100k+ respondents</div>
+                <div class="label">Reached via surveys & studies</div>
+            </div>
+            <div class="stat">
+                <div class="num">20+ countries</div>
+                <div class="label">Regional & global engagements</div>
+            </div>
+            <div class="stat">
+                <div class="num">End-to-end</div>
+                <div class="label">From design to policy impact</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" aria-labelledby="about-title">
+        <div class="container">
+            <h2 id="about-title">About Us</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Mission</h3>
+                    <p>
+                        To advance global health outcomes by providing innovative, evidence-based solutions,
+                        capacity-building initiatives, and strategic partnerships that bridge research, practice,
+                        and policy—improving the health and well-being of communities worldwide.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Vision</h3>
+                    <p>
+                        To be a leading global partner in shaping the future of public health by harnessing the power of
+                        research, collaboration, and technical expertise to drive sustainable health solutions,
+                        inform policy, and foster healthier communities for generations to come.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:1rem;">
+                <h3>Our Approach</h3>
+                <ul class="list">
+                    <li>End-to-end solutions that connect research, practice, and policy.</li>
+                    <li>Technical expertise combined with innovative, context-sensitive methods.</li>
+                    <li>Co-design with stakeholders to ensure relevance, uptake, and equity.</li>
+                    <li>Ethical data governance and rigorous quality assurance across all projects.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" aria-labelledby="services-title">
+        <div class="container">
+            <h2 id="services-title">Our Services</h2>
+            <div class="services">
+                <div class="service">
+                    <h3><span class="icon">🎤</span> Conferences & Workshops</h3>
+                    <p>
+                        Turnkey planning and delivery of scientific conferences, symposia, and technical workshops—
+                        from program design and speaker management to logistics, facilitation, and post-event reporting.
+                    </p>
+                </div>
+                <div class="service">
+                    <h3><span class="icon">📊</span> Public Health Surveys</h3>
+                    <p>
+                        Design and implementation of high-quality quantitative and qualitative surveys, including sampling,
+                        instrument development, field management, and data quality monitoring.
+                    </p>
+                </div>
+                <div class="service">
+                    <h3><span class="icon">🧪</span> Research Grant Support</h3>
+                    <p>
+                        Proposal development, protocol writing, IRB coordination, budgeting, project management,
+                        and reporting to help teams secure funding and deliver on grant milestones.
+                    </p>
+                </div>
+                <div class="service">
+                    <h3><span class="icon">📈</span> Data Collection & Analytics</h3>
+                    <p>
+                        Digital data capture, database setup, cleaning pipelines, statistical analysis, and data
+                        visualization that translate evidence into actionable insights for decision-makers.
+                    </p>
+                </div>
+                <div class="service">
+                    <h3><span class="icon">🎓</span> Training & Capacity Building</h3>
+                    <p>
+                        Tailored training programs and mentorship to strengthen institutional capabilities in
+                        epidemiology, M&E, data management, research methods, and knowledge translation.
+                    </p>
+                </div>
+            </div>
+            <p style="margin-top:1rem" class="muted">Need something bespoke? <a href="#contact">Get in touch</a> to design a solution for your context.</p>
+        </div>
+    </section>
+
+    <!-- Projects / Case Studies -->
+    <section id="projects" aria-labelledby="projects-title">
+        <div class="container">
+            <h2 id="projects-title">Projects / Case Studies</h2>
+
+            <div class="case">
+                <h3>2nd ECOWAS Lassa Fever International Conference (ELFIC 2025) — Abidjan, Côte d'Ivoire</h3>
+                <p>
+                    The 2nd ECOWAS Lassa Fever International Conference (ELFIC 2025) marked a significant milestone in the
+                    fight against Lassa fever in West Africa, convening policymakers, scientists, health professionals,
+                    and development partners to accelerate readiness for vaccines and strengthen regional preparedness.
+                </p>
+                <h4 style="margin-top:.75rem; color: var(--green);">Highlights</h4>
+                <ul class="list">
+                    <li><strong>Historic commitment:</strong> West African Ministers of Health pledged to advance readiness for Lassa fever vaccines, recognizing the disease's threat to regional health security.</li>
+                    <li><strong>Regional solidarity:</strong> ECOWAS Ministers committed to co-finance vaccine development and strengthen platforms for clinical trials, laboratories, and community engagement.</li>
+                    <li><strong>Vaccine development:</strong> Progress of the IAVI Lassa vaccine (Phase IIa) highlighted the need for sustained support to reach licensure.</li>
+                    <li><strong>Global partnerships:</strong> Over 800 participants fostered collaborations across West Africa and beyond to combat Lassa fever.</li>
+                    <li><strong>New path for West Africa:</strong> Countries united to co-finance and prepare systems for vaccine development and distribution.</li>
+                    <li><strong>Climate & risk:</strong> Climate change and population growth could put up to 600 million people at risk by 2050—underscoring the need for coordinated preparedness.</li>
+                </ul>
+                <h4 style="margin-top:.75rem; color: var(--green);">Objectives</h4>
+                <ul class="list">
+                    <li>Advance R&D and share scientific progress, including vaccine candidates.</li>
+                    <li>Strengthen regional coordination and data/resource sharing to enhance health security.</li>
+                    <li>Improve outbreak management systems and multisectoral collaboration.</li>
+                </ul>
+            </div>
+
+            <div class="case">
+                <h3>Impact Story 2</h3>
+                <p>Short description of a second impact story showcasing how evidence and collaboration delivered measurable public health outcomes.</p>
+            </div>
+
+            <div class="case">
+                <h3>Portfolio Item 3</h3>
+                <p>Highlight of a project focused on training, survey implementation, or data-to-policy translation in partnership with local institutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources / Blog -->
+    <section id="resources" aria-labelledby="resources-title">
+        <div class="container">
+            <h2 id="resources-title">Resources / Blog</h2>
+            <div class="blog">
+                <article class="post">
+                    <h3>Strengthening Vaccine Readiness in West Africa</h3>
+                    <p class="meta muted">Jan 2025 • 4 min read</p>
+                    <p>Key considerations for preparing systems for vaccine trials, regulation, and equitable distribution across the region.</p>
+                    <a class="btn outline-dark" href="#contact">Discuss</a>
+                </article>
+                <article class="post">
+                    <h3>Designing High-Quality Public Health Surveys</h3>
+                    <p class="meta muted">Dec 2024 • 5 min read</p>
+                    <p>From sampling frames to field management—practical steps to ensure data quality and representativeness.</p>
+                    <a class="btn outline-dark" href="#contact">Request Training</a>
+                </article>
+                <article class="post">
+                    <h3>From Data to Policy: Turning Evidence into Action</h3>
+                    <p class="meta muted">Nov 2024 • 6 min read</p>
+                    <p>Techniques for synthesizing evidence and communicating insights that inform policy and practice.</p>
+                    <a class="btn outline-dark" href="#contact">Learn More</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+        <div class="container">
+            <h2 id="contact-title">Contact Us</h2>
+            <form aria-label="Contact form">
+                <input type="text" name="name" placeholder="Your Name" autocomplete="name" required />
+                <input type="email" name="email" placeholder="Your Email" autocomplete="email" required />
+                <input type="text" name="org" placeholder="Organization (optional)" />
+                <textarea class="full" name="message" rows="5" placeholder="How can we help?" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+
+            <div class="contact-meta">
+                <p>Email: <a href="mailto:BuHealthNexus@gmail.com">BuHealthNexus@gmail.com</a> • Phone: <a href="tel:+1234567890">+234-704-8808</a></p>
+                <p>Location:Nigeria, Abuja,Lafayette estate gaduwa</p>
+            </div>
+
+            <iframe class="map" src="https://maps.google.com/maps?q=lagos&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="250" loading="lazy" title="Lagos map"></iframe>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section aria-label="Call to action" class="stats">
+        <div class="container" style="padding: 1.75rem 0; text-align:center;">
+            <h3 style="color:var(--blue); margin-bottom:.5rem;">Ready to partner?</h3>
+            <p class="muted" style="margin-bottom: .75rem;">Let's co-design evidence-driven, scalable solutions for your public health priorities.</p>
+            <a class="btn" href="#contact">Start a Conversation</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Bu-Health Nexus Ltd. All rights reserved.</p>
+        <div class="links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="#resources">Resources</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Smooth anchor active state using IntersectionObserver
+        (function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('header nav a');
+
+            const mapIdToLink = new Map();
+            navLinks.forEach(a => {
+                const target = a.getAttribute('href')?.replace('#', '') || '';
+                if (target) mapIdToLink.set(target, a);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const link = mapIdToLink.get(id);
+                    if (!link) return;
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(a => a.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.0 });
+
+            sections.forEach(sec => observer.observe(sec));
+        })();
+
+        // Simple form handler (placeholder)
+        (function () {
+            const form = document.querySelector('form');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const data = new FormData(form);
+                const name = data.get('name');
+                alert(`Thank you${name ? `, ${name}` : ''}! Your message has been received. We’ll get back to you soon.`);
+                form.reset();
+            });
+        })();
+    </script>
+    <script>
+      (function(){
+        const splash = document.getElementById('splash');
+        const btn = document.getElementById('enter-site');
+        const dismiss = () => {
+          if (!splash) return;
+          splash.classList.add('hidden');
+          document.body.classList.remove('no-scroll');
+          if (!location.hash) {
+            try { history.replaceState(null, '', '#home'); } catch {}
+          }
+        };
+        btn?.addEventListener('click', dismiss);
+        // Fallback auto-dismiss after 6s if no interaction
+        setTimeout(() => { if (splash && !splash.classList.contains('hidden')) dismiss(); }, 6000);
+      })();
+    </script>
+</body>
+
+</html>
