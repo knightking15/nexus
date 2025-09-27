@@ -228,7 +228,7 @@
         /* ===== Hero ===== */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-                url('https://picsum.photos/1600/700?healthcare,public-health') center/cover no-repeat;
+                url('./images/scientist-wearing-coverall-equipped-medical-laboratory-examining-drug-discovery-with-micropipette-biochemists-analysing-virus-evolution-using-high-tech-researching-vaccine-against-covid19.jpg') center/cover no-repeat;
             color: #fff;
             text-align: center;
             padding: 5.5rem 0 4rem;
@@ -242,6 +242,7 @@
         .hero p {
             max-width: 850px;
             margin: 0.25rem auto 1.25rem;
+            color: #fff;
         }
 
         .hero .cta {
@@ -266,7 +267,7 @@
             text-align: center;
         }
 
-        .stat {
+        .stat { 
             padding: 1rem;
             background: #fff;
             border-radius: 10px;
@@ -483,9 +484,9 @@
                 <div class="card">
                     <h3>Mission</h3>
                     <p>
-                        To advance global health outcomes by providing innovative, evidence-based solutions,
-                        capacity-building initiatives, and strategic partnerships that bridge research, practice,
-                        and policy—improving the health and well-being of communities worldwide.
+                        To advance global health outcomes by providing innovative, evidence based solutions,
+                        capacity building initiatives, and strategic partnerships that bridge research, practice,
+                        and policy improving the health and well being of communities worldwide.
                     </p>
                 </div>
                 <div class="card">
@@ -501,9 +502,9 @@
             <div class="card" style="margin-top:1rem;">
                 <h3>Our Approach</h3>
                 <ul class="list">
-                    <li>End-to-end solutions that connect research, practice, and policy.</li>
-                    <li>Technical expertise combined with innovative, context-sensitive methods.</li>
-                    <li>Co-design with stakeholders to ensure relevance, uptake, and equity.</li>
+                    <li>End to end solutions that connect research, practice, and policy.</li>
+                    <li>Technical expertise combined with innovative, context sensitive methods.</li>
+                    <li>Co design with stakeholders to ensure relevance, uptake, and equity.</li>
                     <li>Ethical data governance and rigorous quality assurance across all projects.</li>
                 </ul>
             </div>
@@ -518,14 +519,14 @@
                 <div class="service">
                     <h3><span class="icon">🎤</span> Conferences & Workshops</h3>
                     <p>
-                        Turnkey planning and delivery of scientific conferences, symposia, and technical workshops—
-                        from program design and speaker management to logistics, facilitation, and post-event reporting.
+                        Turnkey planning and delivery of scientific conferences, symposia, and technical workshops 
+                        from program design and speaker management to logistics, facilitation, and post event reporting.
                     </p>
                 </div>
                 <div class="service">
                     <h3><span class="icon">📊</span> Public Health Surveys</h3>
                     <p>
-                        Design and implementation of high-quality quantitative and qualitative surveys, including sampling,
+                        Design and implementation of high quality quantitative and qualitative surveys, including sampling,
                         instrument development, field management, and data quality monitoring.
                     </p>
                 </div>
@@ -540,7 +541,7 @@
                     <h3><span class="icon">📈</span> Data Collection & Analytics</h3>
                     <p>
                         Digital data capture, database setup, cleaning pipelines, statistical analysis, and data
-                        visualization that translate evidence into actionable insights for decision-makers.
+                        visualization that translate evidence into actionable insights for decision makers.
                     </p>
                 </div>
                 <div class="service">
@@ -591,7 +592,7 @@
 
             <div class="case">
                 <h3>Portfolio Item 3</h3>
-                <p>Highlight of a project focused on training, survey implementation, or data-to-policy translation in partnership with local institutions.</p>
+                <p>Highlight of a project focused on training, survey implementation, or data to policy translation in partnership with local institutions.</p>
             </div>
         </div>
     </section>
@@ -610,7 +611,7 @@
                 <article class="post">
                     <h3>Designing High-Quality Public Health Surveys</h3>
                     <p class="meta muted">Dec 2024 • 5 min read</p>
-                    <p>From sampling frames to field management—practical steps to ensure data quality and representativeness.</p>
+                    <p>From sampling frames to field management practical steps to ensure data quality and representativeness.</p>
                     <a class="btn outline-dark" href="#contact">Request Training</a>
                 </article>
                 <article class="post">
@@ -709,6 +710,50 @@
       (function(){
         const splash = document.getElementById('splash');
         const btn = document.getElementById('enter-site');
+        
+        // Typewriter animation for hero text
+        let animationStarted = false;
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        function typewriterEffect() {
+          if (animationStarted || prefersReduced) return;
+          animationStarted = true;
+          
+          const heroH1 = document.querySelector('.hero h1');
+          const heroP = document.querySelector('.hero p');
+          
+          if (!heroH1 || !heroP) return;
+          
+          // Store original text
+          const h1Text = heroH1.textContent.trim();
+          const pText = heroP.textContent.replace(/\s+/g, ' ').trim();
+          
+          // Clear text initially
+          heroH1.textContent = '';
+          heroP.textContent = '';
+          
+          // Type heading first
+          let h1Index = 0;
+          const h1Speed = 50; // ms per character
+          const h1Timer = setInterval(() => {
+            heroH1.textContent += h1Text[h1Index++] || '';
+            if (h1Index > h1Text.length) {
+              clearInterval(h1Timer);
+              // Start typing paragraph after heading is done
+              setTimeout(() => {
+                let pIndex = 0;
+                const pSpeed = 20; // ms per character
+                const pTimer = setInterval(() => {
+                  heroP.textContent += pText[pIndex++] || '';
+                  if (pIndex > pText.length) {
+                    clearInterval(pTimer);
+                  }
+                }, pSpeed);
+              }, 300); // Small delay between heading and paragraph
+            }
+          }, h1Speed);
+        }
+        
         const dismiss = () => {
           if (!splash) return;
           splash.classList.add('hidden');
@@ -716,7 +761,10 @@
           if (!location.hash) {
             try { history.replaceState(null, '', '#home'); } catch {}
           }
+          // Start typewriter animation after splash is dismissed
+          setTimeout(typewriterEffect, 200);
         };
+        
         btn?.addEventListener('click', dismiss);
         // Fallback auto-dismiss after 6s if no interaction
         setTimeout(() => { if (splash && !splash.classList.contains('hidden')) dismiss(); }, 6000);
